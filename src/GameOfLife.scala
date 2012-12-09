@@ -11,12 +11,12 @@ class GameOfLife(set: Set[(Int,Int)]) {
     neighbours(point).intersect(set).size
   }
 
-  def kill(killingRule: ((Int, Int)) => Boolean) = {
-    set filter { (x) => killingRule(x) }
+  def kill(survivingRule: ((Int, Int)) => Boolean) = {
+    set filter { (x) => survivingRule(x) }
   }
 
-  def reproduce(reincarnationRule: ((Int, Int)) => Boolean) = {
-    set flatMap { x => neighbours(x) } filter { x => reincarnationRule(x) }
+  def reproduce(reproductionRule: ((Int, Int)) => Boolean) = {
+    set flatMap { x => neighbours(x) } filter { x => reproductionRule(x) }
   }
 
   def tick() = {
@@ -25,12 +25,12 @@ class GameOfLife(set: Set[(Int,Int)]) {
       aliveNeighboursCount(p) == 3
     }
 
-    def killingRule (p: (Int, Int)) : Boolean = {
+    def survivingRule (p: (Int, Int)) : Boolean = {
       val aliveNeighbours = aliveNeighboursCount(p)
       aliveNeighbours == 2 || aliveNeighbours == 3
     }
 
-    val survivors = kill(killingRule)
+    val survivors = kill(survivingRule)
     val newborn = reproduce(reproducingRule)
     survivors ++ newborn
   }

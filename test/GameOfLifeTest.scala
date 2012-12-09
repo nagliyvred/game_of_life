@@ -83,4 +83,11 @@ class GameOfLifeTest extends FlatSpec {
 
     assert(world.tick  == block)
   }
+
+  it should "show us the toad!" in {
+    val toad = Set((1,1),(1,2), (2,3), (3,0), (4,1), (4,2))
+    val world = new GameOfLife((toad))
+
+    assert(world.tick  == Set((1,2), (2,1), (2,2),(3,1), (3,2), (4,1)))
+  }
 }
