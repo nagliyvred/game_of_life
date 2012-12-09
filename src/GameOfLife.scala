@@ -1,5 +1,5 @@
 
-class GameOfLife(set: Set[(Int,Int)]) {
+class GameOfLife(var set: Set[(Int,Int)]) {
 
   def neighbours(point: (Int, Int)) : Set[(Int, Int)] = {
     Set( (point._1 - 1 , point._2 - 1), (point._1 - 1 , point._2),  (point._1 - 1 ,point._2 + 1),
@@ -32,7 +32,8 @@ class GameOfLife(set: Set[(Int,Int)]) {
 
     val survivors = kill(survivingRule)
     val newborn = reproduce(reproducingRule)
-    survivors ++ newborn
+    set = survivors ++ newborn
+    set
   }
 
 }
